@@ -35,7 +35,11 @@ export default function RootLayout({ children }) {
                       background: 'var(--nextui-colors-background)',
                       color: 'var(--nextui-colors-foreground)',
                       border: '1px solid var(--nextui-colors-border)',
+                      zIndex: 9999,
                     },
+                  }}
+                  containerStyle={{
+                    zIndex: 9999,
                   }}
                 />
               </AuthProvider>
