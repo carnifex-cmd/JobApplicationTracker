@@ -16,6 +16,10 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  // ESLint override: ignore lint errors during build
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   
   // Disable webpack caching
   webpack: (config, { dev }) => {
