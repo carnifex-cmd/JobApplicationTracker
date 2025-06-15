@@ -2,7 +2,8 @@
 
 A modern, full-stack job application tracking dashboard built with React (Next.js) and Node.js. Track your job search progress with a clean, responsive interface and powerful features.
 
-![Job Tracker Screenshot](https://via.placeholder.com/800x400?text=Job+Application+Tracker+Dashboard)
+<img width="1438" alt="image" src="https://github.com/user-attachments/assets/7f4fd6b2-eb7d-45ac-a2d5-86b2f932bbd8" />
+
 
 ## ✨ Features
 
