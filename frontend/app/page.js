@@ -5,8 +5,9 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '../hooks/useAuth';
 import { Spinner } from '@nextui-org/react';
 import Dashboard from '../components/layout/Dashboard';
+import dynamic from 'next/dynamic';
 
-export default function Home() {
+const HomeContent = () => {
   const { isAuthenticated, loading } = useAuth();
   const router = useRouter();
 
@@ -29,4 +30,9 @@ export default function Home() {
   }
 
   return <Dashboard />;
-} 
+};
+
+// Export as dynamic component to prevent SSR
+export default dynamic(() => Promise.resolve(HomeContent), {
+  ssr: false
+}); 

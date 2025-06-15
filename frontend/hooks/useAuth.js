@@ -4,36 +4,53 @@ import { toast } from 'react-hot-toast';
 
 const AuthContext = createContext();
 
+// Helper function to check if we're on the client side
+const isClientSide = typeof window !== 'undefined';
+
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [token, setToken] = useState(null);
 
   useEffect(() => {
-    const initAuth = async () => {
-      const storedToken = localStorage.getItem('token');
-      const storedUser = localStorage.getItem('user');
-
-      if (storedToken && storedUser) {
-        setToken(storedToken);
-        setUser(JSON.parse(storedUser));
-        
-        // Verify token is still valid
-        try {
-          await authAPI.getProfile();
-        } catch (error) {
-          // Token is invalid, clear storage
-          logout();
-        }
-      }
-      
+    // Only run this effect on the client side
+    if (!isClientSide) {
       setLoading(false);
+      return;
+    }
+
+    const initAuth = async () => {
+      try {
+        const storedToken = localStorage.getItem('token');
+        const storedUser = localStorage.getItem('user');
+
+        if (storedToken && storedUser) {
+          setToken(storedToken);
+          setUser(JSON.parse(storedUser));
+          
+          // Verify token is still valid
+          try {
+            await authAPI.getProfile();
+          } catch (error) {
+            // Token is invalid, clear storage
+            logout();
+          }
+        }
+      } catch (error) {
+        console.error('Error initializing auth:', error);
+      } finally {
+        setLoading(false);
+      }
     };
 
     initAuth();
   }, []);
 
   const login = async (email, password) => {
+    if (!isClientSide) {
+      return { success: false, error: 'Not available on server side' };
+    }
+
     try {
       const response = await authAPI.login({ email, password });
       const { user: userData, token: userToken } = response.data;
@@ -53,6 +70,10 @@ export const AuthProvider = ({ children }) => {
   };
 
   const signup = async (email, password) => {
+    if (!isClientSide) {
+      return { success: false, error: 'Not available on server side' };
+    }
+
     try {
       const response = await authAPI.signup({ email, password });
       const { user: userData, token: userToken } = response.data;
@@ -72,6 +93,8 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
+    if (!isClientSide) return;
+
     setUser(null);
     setToken(null);
     localStorage.removeItem('token');

@@ -1,39 +1,26 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
-  env: {
-    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001/api',
+  // Ensure app directory is enabled
+  experimental: {
+    appDir: true,
   },
-  // Disable all caching
-  swcMinify: false,
-  generateEtags: false,
-  poweredByHeader: false,
   
-  // Disable static optimization
-  output: 'standalone',
-  
-  // Disable image optimization caching
+  // Disable image optimization for deployment
   images: {
     unoptimized: true,
   },
-  // ESLint override: ignore lint errors during build
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
   
-  // Disable webpack caching
-  webpack: (config, { dev }) => {
-    if (dev) {
-      config.cache = false;
-    }
-    
-    // Disable persistent caching
-    config.infrastructureLogging = {
-      level: 'error',
-    };
-    
+  // Disable SWC minification if needed
+  swcMinify: false,
+  
+  // Disable webpack cache
+  webpack: (config) => {
+    config.cache = false;
     return config;
   },
+  
+  // Disable header for security
+  poweredByHeader: false,
   
   // Custom headers to disable browser caching
   async headers() {
@@ -43,7 +30,7 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'no-cache, no-store, must-revalidate, max-age=0',
+            value: 'no-cache, no-store, must-revalidate',
           },
           {
             key: 'Pragma',
@@ -53,18 +40,10 @@ const nextConfig = {
             key: 'Expires',
             value: '0',
           },
-          {
-            key: 'X-Frame-Options',
-            value: 'DENY',
-          },
-          {
-            key: 'X-Content-Type-Options',
-            value: 'nosniff',
-          },
         ],
       },
     ];
   },
 }
 
-module.exports = nextConfig 
+module.exports = nextConfig; 

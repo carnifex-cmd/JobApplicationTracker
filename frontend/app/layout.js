@@ -3,7 +3,6 @@
 import { Inter } from 'next/font/google';
 import { NextUIProvider } from '@nextui-org/react';
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
-import { I18nProvider } from '@react-aria/i18n';
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider } from '../hooks/useAuth';
 import './globals.css';
@@ -22,26 +21,24 @@ export default function RootLayout({ children }) {
         <meta name="pragma" content="no-cache" />
       </head>
       <body className={inter.className}>
-        <I18nProvider locale="en-US">
-          <NextUIProvider locale="en-US">
-            <NextThemesProvider attribute="class" defaultTheme="light">
-              <AuthProvider>
-                {children}
-                <Toaster
-                  position="top-right"
-                  toastOptions={{
-                    duration: 4000,
-                    style: {
-                      background: 'var(--nextui-colors-background)',
-                      color: 'var(--nextui-colors-foreground)',
-                      border: '1px solid var(--nextui-colors-border)',
-                    },
-                  }}
-                />
-              </AuthProvider>
-            </NextThemesProvider>
-          </NextUIProvider>
-        </I18nProvider>
+        <NextUIProvider>
+          <NextThemesProvider attribute="class" defaultTheme="light">
+            <AuthProvider>
+              {children}
+              <Toaster
+                position="top-right"
+                toastOptions={{
+                  duration: 4000,
+                  style: {
+                    background: 'var(--nextui-colors-background)',
+                    color: 'var(--nextui-colors-foreground)',
+                    border: '1px solid var(--nextui-colors-border)',
+                  },
+                }}
+              />
+            </AuthProvider>
+          </NextThemesProvider>
+        </NextUIProvider>
       </body>
     </html>
   );
