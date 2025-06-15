@@ -10,7 +10,6 @@ import {
 } from '@nextui-org/react';
 import { Calendar, Building, Briefcase, FileText, Tag, X } from 'lucide-react';
 import { format } from 'date-fns';
-import { useApplications } from '../../hooks/useApplications';
 
 const statusOptions = [
   { key: 'applied', label: 'Applied', color: 'default' },
@@ -19,7 +18,13 @@ const statusOptions = [
   { key: 'rejected', label: 'Rejected', color: 'danger' },
 ];
 
-export default function ApplicationModal({ isOpen, onClose, application }) {
+export default function ApplicationModal({ 
+  isOpen, 
+  onClose, 
+  application, 
+  createApplication, 
+  updateApplication 
+}) {
   const [formData, setFormData] = useState({
     company: '',
     job_title: '',
@@ -30,7 +35,6 @@ export default function ApplicationModal({ isOpen, onClose, application }) {
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
-  const { createApplication, updateApplication } = useApplications();
   const isEditing = !!application;
 
   useEffect(() => {

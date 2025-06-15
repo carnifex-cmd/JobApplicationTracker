@@ -28,7 +28,6 @@ import {
   ChevronUp,
 } from 'lucide-react';
 import { format } from 'date-fns';
-import { useApplications } from '../../hooks/useApplications';
 
 const statusColorMap = {
   applied: 'default',
@@ -52,7 +51,14 @@ const sortOptions = [
   { name: 'Application Date', uid: 'application_date' },
 ];
 
-export default function ApplicationsTable({ onEdit }) {
+export default function ApplicationsTable({ 
+  applications,
+  loading,
+  filters,
+  updateFilters,
+  deleteApplication,
+  onEdit 
+}) {
   const [filterValue, setFilterValue] = useState('');
   const [selectedKeys, setSelectedKeys] = useState(new Set([]));
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -61,14 +67,6 @@ export default function ApplicationsTable({ onEdit }) {
     column: 'created_at',
     direction: 'descending'
   });
-
-  const {
-    applications,
-    loading,
-    filters,
-    updateFilters,
-    deleteApplication,
-  } = useApplications();
 
   const hasSearchFilter = Boolean(filterValue);
 

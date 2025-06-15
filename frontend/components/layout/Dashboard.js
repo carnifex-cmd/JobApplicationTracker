@@ -38,7 +38,19 @@ export default function Dashboard() {
   const [editingApplication, setEditingApplication] = useState(null);
   const { theme, setTheme } = useTheme();
   const { user, logout } = useAuth();
-  const { stats } = useApplications();
+  
+  // Move useApplications to Dashboard component to manage state centrally
+  const {
+    applications,
+    stats,
+    loading,
+    filters,
+    updateFilters,
+    createApplication,
+    updateApplication,
+    deleteApplication,
+    fetchApplications,
+  } = useApplications();
 
   const handleEditApplication = (application) => {
     setEditingApplication(application);
@@ -182,7 +194,14 @@ export default function Dashboard() {
             <h2 className="text-2xl font-bold">Your Applications</h2>
           </div>
           
-          <ApplicationsTable onEdit={handleEditApplication} />
+          <ApplicationsTable 
+            applications={applications}
+            loading={loading}
+            filters={filters}
+            updateFilters={updateFilters}
+            deleteApplication={deleteApplication}
+            onEdit={handleEditApplication} 
+          />
         </div>
       </div>
 
@@ -191,6 +210,8 @@ export default function Dashboard() {
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         application={editingApplication}
+        createApplication={createApplication}
+        updateApplication={updateApplication}
       />
     </div>
   );
