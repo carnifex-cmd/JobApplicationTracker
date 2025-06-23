@@ -304,5 +304,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 3. Update backend CORS origins
 
 ---
-
-**Built with ❤️ using modern web technologies** 
