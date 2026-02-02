@@ -32,9 +32,12 @@ export default function RootLayout({ children }) {
                   toastOptions={{
                     duration: 4000,
                     style: {
-                      background: 'var(--nextui-colors-background)',
-                      color: 'var(--nextui-colors-foreground)',
-                      border: '1px solid var(--nextui-colors-border)',
+                      background: 'hsl(var(--nextui-background))',
+                      color: 'hsl(var(--nextui-foreground))',
+                      border: '1px solid hsl(var(--nextui-default-200))',
+                      borderRadius: '8px',
+                      padding: '12px 16px',
+                      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
                       zIndex: 9999,
                     },
                   }}
