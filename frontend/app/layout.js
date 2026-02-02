@@ -24,7 +24,7 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <I18nProvider locale="en-US">
           <NextUIProvider locale="en-US">
-            <NextThemesProvider attribute="class" defaultTheme="light">
+            <NextThemesProvider attribute="class" defaultTheme="dark">
               <AuthProvider>
                 {children}
                 <Toaster
