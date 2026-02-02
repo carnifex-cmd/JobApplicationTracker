@@ -2,14 +2,14 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { 
-  Card, 
-  CardBody, 
-  CardHeader, 
-  Input, 
-  Button, 
+import {
+  Card,
+  CardBody,
+  CardHeader,
+  Input,
+  Button,
   Link,
-  Divider 
+  Divider
 } from '@nextui-org/react';
 import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '../../../hooks/useAuth';
@@ -28,7 +28,7 @@ export default function LoginPage() {
 
   useEffect(() => {
     if (isAuthenticated) {
-      router.push('/');
+      router.push('/dashboard');
     }
   }, [isAuthenticated, router]);
 
@@ -58,18 +58,18 @@ export default function LoginPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!validateForm()) return;
 
     setIsLoading(true);
     const result = await login(formData.email, formData.password);
-    
+
     if (result.success) {
-      router.push('/');
+      router.push('/dashboard');
     } else {
       setErrors({ submit: result.error });
     }
-    
+
     setIsLoading(false);
   };
 
@@ -97,7 +97,7 @@ export default function LoginPage() {
               errorMessage={errors.email}
               isRequired
             />
-            
+
             <Input
               label="Password"
               placeholder="Enter your password"

@@ -1,32 +1,25 @@
 'use client';
 
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { useAuth } from '../hooks/useAuth';
-import { Spinner } from '@nextui-org/react';
-import Dashboard from '../components/layout/Dashboard';
+import {
+  Navbar,
+  HeroSection,
+  ProblemSolution,
+  FeaturesSection,
+  DifferentiatorSection,
+  CTASection,
+  Footer,
+} from '../components/landing';
 
-export default function Home() {
-  const { isAuthenticated, loading } = useAuth();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (!loading && !isAuthenticated) {
-      router.push('/auth/login');
-    }
-  }, [isAuthenticated, loading, router]);
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <Spinner size="lg" color="primary" />
-      </div>
-    );
-  }
-
-  if (!isAuthenticated) {
-    return null; // Will redirect to login
-  }
-
-  return <Dashboard />;
-} 
+export default function LandingPage() {
+  return (
+    <main className="min-h-screen bg-[#0D1117]">
+      <Navbar />
+      <HeroSection />
+      <ProblemSolution />
+      <FeaturesSection />
+      <DifferentiatorSection />
+      <CTASection />
+      <Footer />
+    </main>
+  );
+}
